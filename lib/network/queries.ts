@@ -33,6 +33,10 @@ async function cameraTallies(): Promise<Map<string, CameraTally>> {
   return map
 }
 
+// Administrative buckets, not physical sites with network infrastructure, so
+// they are hidden from the network view. Matched case-insensitively.
+const NETWORK_HIDDEN_PROPERTIES = new Set(['corporate', 'remote'])
+
 // Every property with its (optional) network summary and live camera counts.
 export async function getPropertyNetworks(): Promise<PropertyNetwork[]> {
   const supabase = await createClient()
@@ -45,7 +49,12 @@ export async function getPropertyNetworks(): Promise<PropertyNetwork[]> {
   const byProperty = new Map<string, NetworkSummaryRow>()
   for (const s of summaries ?? []) byProperty.set(s.property_id, s)
 
-  return (properties ?? []).map((property) => ({
+  return (properties ?? [])
+    .filter(
+      (property) =>
+        !NETWORK_HIDDEN_PROPERTIES.has(property.name.trim().toLowerCase())
+    )
+    .map((property) => ({
     property,
     summary: byProperty.get(property.id) ?? null,
     cameras: cameras.get(property.id) ?? { active: 0, inactive: 0, vendors: [] },
