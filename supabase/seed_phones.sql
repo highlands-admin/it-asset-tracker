@@ -5,644 +5,644 @@ begin;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-jefferson'), 'Front Desk', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe803b', 'Main line: 706-387-7000')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-jefferson'), 'Front Desk', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe803b', 'Main line: 706-387-7000')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1000', '50.146.108.10', '10.36.43.191', 'Desk phone', 'Ready', '2026-05-13', '1000: Front Desk', 'PSTN', NULL, '20.06', 'actual', 'GoTo seat $18.00 + fees $2.06. Includes 1 DID. Invoice IN7105370066 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17063877000', 'Front Desk', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-jefferson'), 'Executive Director', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe77d7', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-jefferson'), 'Executive Director', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe77d7', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1001', '50.146.108.10', '10.36.43.80', 'Desk phone', 'Ready', '2026-05-13', '1001: Executive Director', 'PSTN', NULL, '20.06', 'actual', 'GoTo seat $18.00 + fees $2.06. Includes 1 DID. Invoice IN7105370066 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17064068565', 'Executive Director', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-jefferson'), 'Business Office Manager', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2feb825', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-jefferson'), 'Business Office Manager', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2feb825', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1002', '50.146.108.10', '10.36.43.99', 'Desk phone', 'Ready', '2026-05-15', '1002: Business Office Manager', 'PSTN', NULL, '20.06', 'actual', 'GoTo seat $18.00 + fees $2.06. Includes 1 DID. Invoice IN7105370066 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17064068574', 'Business Office Manager', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-jefferson'), 'Sales Office', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2feb637', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-jefferson'), 'Sales Office', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2feb637', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1003', '50.146.108.10', '10.36.43.87', 'Desk phone', 'Ready', '2026-05-13', '1003: Sales Office', 'PSTN', NULL, '20.06', 'actual', 'GoTo seat $18.00 + fees $2.06. Includes 1 DID. Invoice IN7105370066 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17064068584', 'Sales Office', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-jefferson'), 'Nurse Office', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2feb32c', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-jefferson'), 'Nurse Office', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2feb32c', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1004', '50.146.108.10', '10.209.113.209', 'Desk phone', 'Ready', '2026-05-17', '1004: Nurse Office', 'PSTN', NULL, '20.06', 'actual', 'GoTo seat $18.00 + fees $2.06. Includes 1 DID. Invoice IN7105370066 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17064068593', 'Nurse Office', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-jefferson'), 'AL Medtech', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fea391', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-jefferson'), 'AL Medtech', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fea391', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1005', '50.146.108.10', '10.36.43.108', 'Desk phone', 'Ready', '2026-05-13', '1005: AL Medtech', 'PSTN', NULL, '20.06', 'actual', 'GoTo seat $18.00 + fees $2.06. Includes 1 DID. Invoice IN7105370066 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17064068601', 'AL Medtech', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-jefferson'), 'MC Medtech', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe8e7a', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-jefferson'), 'MC Medtech', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe8e7a', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1006', '50.146.108.10', '10.100.242.37', 'Desk phone', 'Ready', '2026-05-17', '1006: MC Medtech', 'PSTN', NULL, '20.06', 'actual', 'GoTo seat $18.00 + fees $2.06. Includes 1 DID. Invoice IN7105370066 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17064068605', 'MC Medtech', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-jefferson'), 'Activities', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe8644', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-jefferson'), 'Activities', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe8644', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1007', '50.146.108.10', '10.95.58.28', 'Desk phone', 'Ready', '2026-05-15', '1007: Activities', 'PSTN', NULL, '20.06', 'actual', 'GoTo seat $18.00 + fees $2.06. Includes 1 DID. Invoice IN7105370066 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17064068607', 'Activities', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-jefferson'), 'Fax', 'ATA / Fax', 'Inactive', 'Cisco', 'ATA191', 'ec74d729d5a0', 'FAX line')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-jefferson'), 'Fax', 'ATA / Fax', 'Inactive', 'Cisco', 'ATA191', 'ec74d729d5a0', 'FAX line')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1008', NULL, '10.36.43.37', 'Analog telephone adapter', 'Unavailable', NULL, '1008: FAX Grandstream ATA', 'PSTN', NULL, '20.56', 'actual', 'GoTo ATA seat $18.00 + fees $2.06 + DID $0.50. Invoice IN7105370066 May 2026. FAX line.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17063871149', 'FAX line', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), 'Main Office', 'Desk Phone', 'Active', NULL, NULL, NULL, 'AT&T Phone Unlimited N. America. Acct 151834264. Promotional offer rate.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), 'Main Office', 'Desk Phone', 'Active', NULL, NULL, NULL, 'AT&T Phone Unlimited N. America. Acct 151834264. Promotional offer rate.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'AT&T', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '41.03', 'actual', 'AT&T phone line $30 + half of shared fees $11.03 = $41.03/mo est.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18039550453', 'Main line', 'AT&T', 'PSTN', 'Regular', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), NULL, 'Desk Phone', 'Active', NULL, NULL, NULL, 'AT&T Phone flat rate. Acct 151834264.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), NULL, 'Desk Phone', 'Active', NULL, NULL, NULL, 'AT&T Phone flat rate. Acct 151834264.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'AT&T', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '41.03', 'actual', 'AT&T phone line $30 + half of shared fees $11.03 = $41.03/mo est.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18037558333', NULL, 'AT&T', 'PSTN', 'Regular', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), NULL, 'Mobile', 'Active', NULL, 'Smartphone 4G LTE', NULL, 'AT&T Mobile Select 1GB Pool. Acct 287319845202 (Rapha Residential Care). 516 daytime + 128 N&W min Sep 2025.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), NULL, 'Mobile', 'Active', NULL, 'Smartphone 4G LTE', NULL, 'AT&T Mobile Select 1GB Pool. Acct 287319845202 (Rapha Residential Care). 516 daytime + 128 N&W min Sep 2025.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'AT&T', NULL, NULL, NULL, 'Mobile', 'Activated', NULL, NULL, 'AT&T Mobility', NULL, '44.00', 'actual', 'AT&T Mobile Select 1GB $35 + company fees $6.68 + taxes $2.32 = $44/mo. Invoice Sep 2025.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18039087087', 'Rapha Residential Care', 'AT&T', 'PSTN', 'Mobile', 'Rapha Residential Care', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), 'Front Desk', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe7582', 'Main line: 803-265-8412')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), 'Front Desk', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe7582', 'Main line: 803-265-8412')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1001', '99.38.185.138', '192.168.1.113', 'Desk phone', 'Ready', '2026-05-17', '3333: Call Flow', 'PSTN', NULL, '21.72', 'actual', 'GoTo seat $18.00 + fees $3.41 + DID $0.50 + min DID fee share $0.19. Invoice IN7105361191 May 2026. Main line.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18032658412', 'Front Desk', 'GoTo', 'PSTN', 'Regular', 'HSL Gaston', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), 'Executive Director (Krissy)', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe7652', 'Krissy ED office phone. Serial 401037H0600017688 from rear sticker (May 2026 on-site photo).')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), 'Executive Director (Krissy)', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe7652', 'Krissy ED office phone. Serial 401037H0600017688 from rear sticker (May 2026 on-site photo).')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1002', '99.38.185.138', '192.168.1.109', 'Desk phone', 'Ready', '2026-05-17', '1002: Executive Director', 'PSTN', NULL, '21.41', 'actual', 'GoTo seat $18.00 + fees $3.41. Invoice IN7105361191 May 2026.');
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), 'Business Office', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe87f4', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), 'Business Office', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe87f4', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1003', '99.38.185.138', '192.168.1.75', 'Desk phone', 'Ready', '2026-05-14', '1003: Business Office', 'PSTN', NULL, '21.41', 'actual', 'GoTo seat $18.00 + fees $3.41. Invoice IN7105361191 May 2026.');
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), 'AL Med Room', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe8af1', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), 'AL Med Room', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe8af1', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1004', '99.38.185.138', '192.168.1.110', 'Desk phone', 'Ready', '2026-05-15', '1004: AL Med Room', 'PSTN', NULL, '21.41', 'actual', 'GoTo seat $18.00 + fees $3.41. Invoice IN7105361191 May 2026.');
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), 'MC Med Room', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe9cd1', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), 'MC Med Room', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe9cd1', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1005', '99.38.185.138', '192.168.1.116', 'Desk phone', 'Ready', '2026-05-17', '1005: MC Med Room', 'PSTN', NULL, '21.41', 'actual', 'GoTo seat $18.00 + fees $3.41. Invoice IN7105361191 May 2026.');
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), 'Kitchen', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe9e65', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), 'Kitchen', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2fe9e65', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1006', '99.38.185.138', '192.168.1.173', 'Desk phone', 'Ready', '2026-05-17', '1006: Kitchen', 'PSTN', NULL, '21.41', 'actual', 'GoTo seat $18.00 + fees $3.41. Invoice IN7105361191 May 2026.');
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), 'RCC Office', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2feb9c8', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), 'RCC Office', 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', '44dbd2feb9c8', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1007', '99.38.185.138', '192.168.1.114', 'Desk phone', 'Ready', '2026-05-16', '1007: RCC Office', 'PSTN', NULL, '21.41', 'actual', 'GoTo seat $18.00 + fees $3.41. Invoice IN7105361191 May 2026.');
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-gaston'), 'Fax', 'ATA / Fax', 'Inactive', 'Grandstream', 'HT801', 'ec74d729d6cb', 'Manually Provisioned')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-gaston'), 'Fax', 'ATA / Fax', 'Inactive', 'Grandstream', 'HT801', 'ec74d729d6cb', 'Manually Provisioned')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1008', NULL, NULL, 'Analog telephone adapter', 'Unavailable', NULL, '1008: FAX ATA', 'PSTN', NULL, '21.72', 'actual', 'GoTo ATA seat $18.00 + fees $3.41 + DID $0.50 + min DID fee share. Invoice IN7105361191 May 2026. FAX line.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18033050322', 'FAX ATA', 'GoTo', 'PSTN', 'Regular', 'HSL Gaston', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-rome'), NULL, 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast legacy)', NULL, 'Comcast Mobility Line. Bundle cbc-rome. Caller ID display name: Highlands.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-rome'), NULL, 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast legacy)', NULL, 'Comcast Mobility Line. Bundle cbc-rome. Caller ID display name: Highlands.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'Comcast', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '24.25', 'actual', 'Comcast voice line (8220160110667101). Voice portion $97.00/4 lines = $24.25/line. See cbc-rome-voice contract.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17068020541', 'Main', 'Comcast', 'PSTN', 'Regular', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-rome'), NULL, 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast legacy)', NULL, 'Comcast Mobility Line. Bundle cbc-rome.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-rome'), NULL, 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast legacy)', NULL, 'Comcast Mobility Line. Bundle cbc-rome.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'Comcast', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '24.25', 'actual', 'Comcast voice line (8220160110667101). Voice portion $97.00/4 lines = $24.25/line. See cbc-rome-voice contract.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17062328661', NULL, 'Comcast', 'PSTN', 'Regular', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-rome'), NULL, 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast legacy)', NULL, 'Comcast Mobility Line. Bundle cbc-rome.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-rome'), NULL, 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast legacy)', NULL, 'Comcast Mobility Line. Bundle cbc-rome.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'Comcast', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '24.25', 'actual', 'Comcast voice line (8220160110667101). Voice portion $97.00/4 lines = $24.25/line. See cbc-rome-voice contract.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17062047093', NULL, 'Comcast', 'PSTN', 'Regular', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-rome'), NULL, 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast legacy)', NULL, 'Comcast Mobility Line. Bundle cbc-rome.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-rome'), NULL, 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast legacy)', NULL, 'Comcast Mobility Line. Bundle cbc-rome.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'Comcast', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '24.25', 'actual', 'Comcast voice line (8220160110667101). Voice portion $97.00/4 lines = $24.25/line. See cbc-rome-voice contract.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17062328662', NULL, 'Comcast', 'PSTN', 'Regular', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-rome'), 'Admin', 'Desk Phone', 'Active', 'Poly', 'VVX 450', '64167fe95e18', 'Main line: 706-802-0990')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-rome'), 'Admin', 'Desk Phone', 'Active', 'Poly', 'VVX 450', '64167fe95e18', 'Main line: 706-802-0990')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1001', '50.246.10.234', '10.70.1.246', 'Desk phone', 'Ready', '2026-05-17', '1006: Main', 'PSTN', NULL, '21.36', 'actual', 'GoTo seat $18.00 + fees $2.86 + DID $0.50. Invoice IN7105333077 May 2026. Main line.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17068020990', 'Main Line', 'GoTo', 'PSTN', 'Regular', 'Highlands Rome', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-rome'), 'Business Office Mgr', 'Desk Phone', 'Active', 'Poly', 'VVX 450', '64167fe95e2c', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-rome'), 'Business Office Mgr', 'Desk Phone', 'Active', 'Poly', 'VVX 450', '64167fe95e2c', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1002', '50.246.10.234', '10.70.1.17', 'Desk phone', 'Ready', '2026-05-13', '1002: BOM BOM', 'PSTN', NULL, '20.86', 'actual', 'GoTo seat $18.00 + fees $2.86. Invoice IN7105333077 May 2026.');
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-rome'), 'RCC Office', 'Desk Phone', 'Active', 'Poly', 'VVX 450', '64167fecdb87', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-rome'), 'RCC Office', 'Desk Phone', 'Active', 'Poly', 'VVX 450', '64167fecdb87', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1003', '50.246.10.234', '10.70.1.227', 'Desk phone', 'Ready', '2026-05-17', '1003: RCC RCC', 'PSTN', NULL, '20.86', 'actual', 'GoTo seat $18.00 + fees $2.86. Invoice IN7105333077 May 2026.');
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-rome'), 'Nurse Station B', 'Desk Phone', 'Active', 'Poly', 'VVX 450', '64167fecd389', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-rome'), 'Nurse Station B', 'Desk Phone', 'Active', 'Poly', 'VVX 450', '64167fecd389', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1004', '50.246.10.234', '10.70.1.75', 'Desk phone', 'Ready', '2026-05-17', '1004: Nurse Station B Side', 'PSTN', NULL, '21.36', 'actual', 'GoTo seat $18.00 + fees $2.86 + DID $0.50. Invoice IN7105333077 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17062914135', 'Nurse Station B', 'GoTo', 'PSTN', 'Regular', 'Highlands Rome', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-rome'), 'Nurse Station A', 'Desk Phone', 'Active', 'Poly', 'VVX 450', '64167fecd2e4', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-rome'), 'Nurse Station A', 'Desk Phone', 'Active', 'Poly', 'VVX 450', '64167fecd2e4', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1005', '50.246.10.234', '10.70.1.47', 'Desk phone', 'Ready', '2026-05-12', '1005: Nurse Station A Side', 'PSTN', NULL, '21.36', 'actual', 'GoTo seat $18.00 + fees $2.86 + DID $0.50. Invoice IN7105333077 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17062914136', 'Nurse Station A', 'GoTo', 'PSTN', 'Regular', 'Highlands Rome', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-rome'), 'Unassigned', 'Desk Phone', 'Inactive', 'Yealink', 'SIP-T34W', 'c4fc22072c15', 'Needs activation')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-rome'), 'Unassigned', 'Desk Phone', 'Inactive', 'Yealink', 'SIP-T34W', 'c4fc22072c15', 'Needs activation')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', NULL, '50.246.10.234', NULL, 'Desk phone', 'Unavailable', '2026-02-10', '2007: MADN', 'PSTN', NULL, NULL, 'actual', NULL);
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17062344341', 'MADN', 'GoTo', 'PSTN', 'Regular', NULL, '47.11', 'GoTo seat $18.00 + fees $2.86 + equipment rental $26.25. Invoice IN7105333077 May 2026. Needs activation.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17062344342', 'MADN', 'GoTo', 'PSTN', 'Regular', NULL, NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-forestcity'), NULL, 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', 'c4fc221762f6', 'Needs proper name in GoTo')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-forestcity'), NULL, 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', 'c4fc221762f6', 'Needs proper name in GoTo')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1001', '153.66.97.237', '192.168.1.101', 'Desk phone', 'Ready', '2026-05-16', '1001: c4fc221762f6', 'PSTN', NULL, '21.72', 'actual', 'GoTo seat $18.00 + fees est. $3.41 + DID $0.50 (Gaston rate basis). Est. from IN7105361191 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18282226241', 'Ext 1001', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-forestcity'), NULL, 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', 'c4fc22355b12', 'Needs proper name in GoTo')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-forestcity'), NULL, 'Desk Phone', 'Active', 'Yealink', 'SIP-T34W', 'c4fc22355b12', 'Needs proper name in GoTo')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1002', '153.66.97.237', '192.168.1.191', 'Desk phone', 'Ready', '2026-05-16', '1002: c4fc22355b12', 'PSTN', NULL, '21.72', 'actual', 'GoTo seat $18.00 + fees est. $3.41 + DID $0.50 (Gaston rate basis). Est. from IN7105361191 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18282226240', 'Ext 1002', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-forestcity'), 'Fax', 'ATA / Fax', 'Needs Attention', 'Poly', 'ATA 400', 'ec74d7c87eba', 'FAX line: 828-222-6271')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-forestcity'), 'Fax', 'ATA / Fax', 'Needs Attention', 'Poly', 'ATA 400', 'ec74d7c87eba', 'FAX line: 828-222-6271')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'GoTo', '1009', NULL, '192.168.1.124', 'Analog telephone adapter', 'Needs Attention', NULL, '1009: FAX Machine', 'PSTN', NULL, '21.72', 'actual', 'GoTo ATA seat $18.00 + fees est. $3.41 + DID $0.50 (Gaston rate basis). Est. FAX line.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18282226271', 'FAX Machine', 'GoTo', 'PSTN', 'Regular', 'Highlands SL', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), 'Main Office', 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast Samsung switch)', NULL, 'Comcast Mobility Line 1. Caller ID: Felton Manor. Part of Comcast bundle (cbc-cart $444.90/mo).')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), 'Main Office', 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast Samsung switch)', NULL, 'Comcast Mobility Line 1. Caller ID: Felton Manor. Part of Comcast bundle (cbc-cart $444.90/mo).')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'Comcast', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '26.99', 'actual', 'Comcast voice line (OID-0012407729). Voice portion $134.95/5 lines = $26.99/line. Part of cbc-cart-voice contract.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17703828989', 'Main line', 'Comcast', 'PSTN', 'Regular', 'Felton Manor', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), 'Main Office', 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast Samsung switch)', NULL, 'Comcast Mobility Line 2. Part of Comcast bundle (cbc-cart $444.90/mo).')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), 'Main Office', 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast Samsung switch)', NULL, 'Comcast Mobility Line 2. Part of Comcast bundle (cbc-cart $444.90/mo).')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'Comcast', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '26.99', 'actual', 'Comcast voice line (OID-0012407729). Voice portion $134.95/5 lines = $26.99/line. Part of cbc-cart-voice contract.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17703867847', NULL, 'Comcast', 'PSTN', 'Regular', 'Felton Manor', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), 'Main Office', 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast Samsung switch)', NULL, 'Comcast Mobility Line 3. Part of Comcast bundle (cbc-cart $444.90/mo).')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), 'Main Office', 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast Samsung switch)', NULL, 'Comcast Mobility Line 3. Part of Comcast bundle (cbc-cart $444.90/mo).')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'Comcast', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '26.99', 'actual', 'Comcast voice line (OID-0012407729). Voice portion $134.95/5 lines = $26.99/line. Part of cbc-cart-voice contract.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17706061141', NULL, 'Comcast', 'PSTN', 'Regular', 'Felton Manor', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), 'Main Office', 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast Samsung switch)', NULL, 'Comcast Mobility Line 4. Part of Comcast bundle (cbc-cart $444.90/mo).')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), 'Main Office', 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast Samsung switch)', NULL, 'Comcast Mobility Line 4. Part of Comcast bundle (cbc-cart $444.90/mo).')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'Comcast', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '26.99', 'actual', 'Comcast voice line (OID-0012407729). Voice portion $134.95/5 lines = $26.99/line. Part of cbc-cart-voice contract.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+14702277954', NULL, 'Comcast', 'PSTN', 'Regular', 'Felton Manor', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), 'Main Office', 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast Samsung switch)', NULL, 'Comcast Mobility Line 5 (directory listing number). Part of Comcast bundle (cbc-cart $444.90/mo).')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), 'Main Office', 'Desk Phone', 'Active', 'Samsung', 'Digital (Comcast Samsung switch)', NULL, 'Comcast Mobility Line 5 (directory listing number). Part of Comcast bundle (cbc-cart $444.90/mo).')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'Comcast', NULL, NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '26.99', 'actual', 'Comcast voice line (OID-0012407729). Voice portion $134.95/5 lines = $26.99/line. Part of cbc-cart-voice contract.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+14703154320', 'Directory listing', 'Comcast', 'PSTN', 'Regular', 'Felton Manor', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, 'Samsung Galaxy S25 - Icy Blue 128GB', NULL, 'T-Mobile Bus Unl Select Promo AAL. Galaxy S25 Icy Blue. EIP 7/24, $566.61 balance. Invoice 987665350-39 Mar 2026.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, 'Samsung Galaxy S25 - Icy Blue 128GB', NULL, 'T-Mobile Bus Unl Select Promo AAL. Galaxy S25 Icy Blue. EIP 7/24, $566.61 balance. Invoice 987665350-39 Mar 2026.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'T-Mobile', NULL, NULL, NULL, 'Mobile', 'Activated', NULL, NULL, 'T-Mobile', NULL, '36.47', 'actual', 'T-Mobile AAL $30 + tax $6.47. Invoice 987665350-39 Mar 2026. Galaxy S25 on EIP separate.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16782804394', NULL, 'T-Mobile', 'PSTN', 'Mobile', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, 'Samsung Galaxy S25 - Navy 128GB', NULL, 'T-Mobile Bus Unl Select Promo AAL. Galaxy S25 Navy. EIP 7/24, $566.61 balance. Invoice 987665350-39 Mar 2026.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, 'Samsung Galaxy S25 - Navy 128GB', NULL, 'T-Mobile Bus Unl Select Promo AAL. Galaxy S25 Navy. EIP 7/24, $566.61 balance. Invoice 987665350-39 Mar 2026.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'T-Mobile', NULL, NULL, NULL, 'Mobile', 'Activated', NULL, NULL, 'T-Mobile', NULL, '36.47', 'actual', 'T-Mobile AAL $30 + tax $6.47. Invoice 987665350-39 Mar 2026. Galaxy S25 on EIP separate.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16782804670', NULL, 'T-Mobile', 'PSTN', 'Mobile', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, NULL, NULL, 'T-Mobile Bus Unl Select Promo (pool). 321 min Mar 2026. Invoice 987665350-39.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, NULL, NULL, 'T-Mobile Bus Unl Select Promo (pool). 321 min Mar 2026. Invoice 987665350-39.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'T-Mobile', NULL, NULL, NULL, 'Mobile', 'Activated', NULL, NULL, 'T-Mobile', NULL, '36.33', 'actual', 'T-Mobile pool line $30 + tax $6.33. 4-line pool $120 shared. Invoice 987665350-39 Mar 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16789388669', NULL, 'T-Mobile', 'PSTN', 'Mobile', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, NULL, NULL, 'T-Mobile Bus Unl Select Promo (pool). 4,044 min Mar 2026 — heavy usage. Invoice 987665350-39.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, NULL, NULL, 'T-Mobile Bus Unl Select Promo (pool). 4,044 min Mar 2026 — heavy usage. Invoice 987665350-39.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'T-Mobile', NULL, NULL, NULL, 'Mobile', 'Activated', NULL, NULL, 'T-Mobile', NULL, '36.33', 'actual', 'T-Mobile pool line $30 + tax $6.33. Invoice 987665350-39 Mar 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17702315912', NULL, 'T-Mobile', 'PSTN', 'Mobile', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, NULL, NULL, 'T-Mobile Bus Unl Select Promo (pool). 305 min, 1,735 texts Mar 2026. Invoice 987665350-39.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, NULL, NULL, 'T-Mobile Bus Unl Select Promo (pool). 305 min, 1,735 texts Mar 2026. Invoice 987665350-39.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'T-Mobile', NULL, NULL, NULL, 'Mobile', 'Activated', NULL, NULL, 'T-Mobile', NULL, '36.33', 'actual', 'T-Mobile pool line $30 + tax $6.33. Invoice 987665350-39 Mar 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17703183124', NULL, 'T-Mobile', 'PSTN', 'Mobile', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, NULL, NULL, 'T-Mobile Bus Unl Select Promo (pool). 2,097 min Mar 2026 — Annmarie Pasmore (billing contact). Invoice 987665350-39.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-cartersville'), NULL, 'Mobile', 'Active', NULL, NULL, NULL, 'T-Mobile Bus Unl Select Promo (pool). 2,097 min Mar 2026 — Annmarie Pasmore (billing contact). Invoice 987665350-39.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'T-Mobile', NULL, NULL, NULL, 'Mobile', 'Activated', NULL, NULL, 'T-Mobile', NULL, '36.33', 'actual', 'T-Mobile pool line $30 + tax $6.33. Invoice 987665350-39 Mar 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17705486638', 'Annmarie Pasmore', 'T-Mobile', 'PSTN', 'Mobile', 'Highlands Senior Living', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Front Desk', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', 'Multiple DIDs routed to ext 630')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Front Desk', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', 'Multiple DIDs routed to ext 630')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '630', NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', '002763360...', NULL, 'actual', NULL);
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+14702733336', 'Front Desk', '8x8', 'Claim', 'Regular', 'Disabled', '34.51', '8x8 X1 seat $15 + tax $4.51 + 3 extra DIDs $15. Invoice 9866592 May 2026. 5 DIDs on this phone (1 incl, 4 extra: 3×$5+1×$0).');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+14702736881', 'Front Desk', '8x8', 'Claim', 'Regular', 'Disabled', NULL, NULL);
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140629', 'Front Desk', '8x8', 'Port', 'Regular', 'Disabled', NULL, NULL);
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140639', 'Front Desk', '8x8', 'Port', 'Regular', 'Disabled', NULL, NULL);
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17703680292', 'Front Desk', '8x8', 'Port', 'Regular', 'Enabled - Highlands', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Steve Brooks', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Steve Brooks', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '631', NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', NULL, '19.51', 'actual', '8x8 X1 seat $15 + tax $4.51. Invoice 9866592 May 2026. 1 DID included in plan.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140631', 'Steve Brooks', '8x8', 'Port', 'Regular', 'Disabled', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Jenohn Carter', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', 'Fax DID: 678-846-8343')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Jenohn Carter', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', 'Fax DID: 678-846-8343')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '632', NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', '012381800...', NULL, 'actual', NULL);
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140632', 'Jenohn Carter', '8x8', 'Port', 'Regular', 'Disabled - Display: Joy...', '20.51', '8x8 X1 seat $15 + tax $4.51 + 1 extra DID $1. Invoice 9866592 May 2026. Fax DID extra.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16788468343', 'Jenohn Carter', '8x8', 'Claim', 'Regular', 'Disabled', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Joy Hope', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Joy Hope', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '633', NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', '320017430...', '19.51', 'actual', '8x8 X1 seat $15 + tax $4.51. Invoice 9866592 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140633', 'Joy Hope', '8x8', 'Port', 'Regular', 'Disabled - Display: Com...', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Wellness Director', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Wellness Director', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '634', NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', '223528730...', '19.51', 'actual', '8x8 X1 seat $15 + tax $4.51. Invoice 9866592 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140634', 'Wellness Director', '8x8', 'Port', 'Regular', 'Disabled - Display: Marl...', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Manny Tero', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Manny Tero', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '635', NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', '522528070...', '19.51', 'actual', '8x8 X1 seat $15 + tax $4.51. Invoice 9866592 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140635', 'Manny Tero', '8x8', 'Port', 'Regular', 'Disabled - Display: Ed K...', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Wellness Center', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Wellness Center', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '636', NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', '042956200...', '19.51', 'actual', '8x8 X1 seat $15 + tax $4.51. Invoice 9866592 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140636', 'Wellness Center', '8x8', 'Port', 'Regular', 'Disabled - Display: Well...', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'AL Medroom', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'AL Medroom', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '637', NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', '290723830...', '19.51', 'actual', '8x8 X1 seat $15 + tax $4.51. Invoice 9866592 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140637', 'AL Medroom', '8x8', 'Port', 'Regular', 'Disabled - Display: Acti...', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Copy Room', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Copy Room', 'Desk Phone', 'Active', 'Polycom', 'VVX 411', '64-16-7f-xx-xx-xx', NULL)
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '638', NULL, NULL, 'Desk phone', 'Activated', NULL, NULL, 'PSTN', '838283200...', '19.51', 'actual', '8x8 X1 seat $15 + tax $4.51. Invoice 9866592 May 2026.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140638', 'Copy Room', '8x8', 'Port', 'Regular', 'Disabled', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Conference Bridge', 'Other', 'Active', NULL, 'Ring Group', NULL, 'Ring group - not a physical device')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Conference Bridge', 'Other', 'Active', NULL, 'Ring Group', NULL, 'Ring group - not a physical device')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '699', NULL, NULL, 'Ring group', 'Activated', NULL, NULL, 'PSTN', NULL, '29.51', 'actual', '8x8 X2 seat $25 + tax $4.51. Invoice 9866592 May 2026. Ring group/Conference Bridge.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+16785140640', 'Conference Bridge', '8x8', 'Port', 'Regular', 'Disabled - Display: Una...', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Fax Machine', 'ATA / Fax', 'Active', 'Obihai', 'OBi 300 1 port SIP ATA', '9c-ad-ef-xx-xx-xx', 'Site: Norcross-HolcombBridge')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Fax Machine', 'ATA / Fax', 'Active', 'Obihai', 'OBi 300 1 port SIP ATA', '9c-ad-ef-xx-xx-xx', 'Site: Norcross-HolcombBridge')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '100', NULL, NULL, 'Analog telephone adapter', 'Activated', NULL, NULL, 'PSTN', '140163390...', '19.51', 'actual', '8x8 X1 seat $15 + tax $4.51. Invoice 9866592 May 2026. ATA fax device.');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+17704494222', 'Fax Machine', '8x8', 'Port', 'Regular', 'Disabled', NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-columbia'), NULL, 'Analog Line', 'Active', NULL, NULL, NULL, 'AT&T acct 337883844. $41.62/mo.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-columbia'), NULL, 'Analog Line', 'Active', NULL, NULL, NULL, 'AT&T acct 337883844. $41.62/mo.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'AT&T', NULL, NULL, NULL, 'Analog', 'Activated', NULL, NULL, 'AT&T', NULL, '41.62', 'actual', 'AT&T analog line. $124.87 total / 3 lines = $41.62/line. Part of att-col contract $274.67/mo (incl. internet).');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18037867411', NULL, 'AT&T', 'AT&T', 'Regular', NULL, NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-columbia'), NULL, 'Analog Line', 'Active', NULL, NULL, NULL, 'AT&T acct 337883844. $41.62/mo.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-columbia'), NULL, 'Analog Line', 'Active', NULL, NULL, NULL, 'AT&T acct 337883844. $41.62/mo.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'AT&T', NULL, NULL, NULL, 'Analog', 'Activated', NULL, NULL, 'AT&T', NULL, '41.62', 'actual', 'AT&T analog line. $124.87 total / 3 lines = $41.62/line. Part of att-col contract $274.67/mo (incl. internet).');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18037867021', NULL, 'AT&T', 'AT&T', 'Regular', NULL, NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-columbia'), NULL, 'Analog Line', 'Active', NULL, NULL, NULL, 'AT&T acct 337883844. $41.62/mo.')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-columbia'), NULL, 'Analog Line', 'Active', NULL, NULL, NULL, 'AT&T acct 337883844. $41.62/mo.')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, 'AT&T', NULL, NULL, NULL, 'Analog', 'Activated', NULL, NULL, 'AT&T', NULL, '41.62', 'actual', 'AT&T analog line. $124.87 total / 3 lines = $41.62/line. Part of att-col contract $274.67/mo (incl. internet).');
-  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
+  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)
   values (pid, '+18037867276', NULL, 'AT&T', 'AT&T', 'Regular', NULL, NULL, NULL);
 end $seed$;
 do $seed$
 declare pid uuid;
 begin
-  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
-  values ('phone', (select id from public.operators limit 1), (select id from public.properties where slug = 'loc-norcross'), 'Fax Machine (handset)', 'ATA / Fax', 'Active', 'Obihai', 'OBi Handset', NULL, 'Site: Norcross-HolcombBridge - paired with OBi 300 ATA')
+  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)
+  values ('phone', (select id from it_asset_tracker.operators limit 1), (select id from it_asset_tracker.properties where slug = 'loc-norcross'), 'Fax Machine (handset)', 'ATA / Fax', 'Active', 'Obihai', 'OBi Handset', NULL, 'Site: Norcross-HolcombBridge - paired with OBi 300 ATA')
   returning id into pid;
-  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
+  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)
   values (pid, '8x8', '100', NULL, NULL, 'Analog telephone adapter', 'Activated', NULL, NULL, 'PSTN', NULL, '0.00', 'actual', '8x8 paired OBi handset — no separate seat charge. Shares ext 100 with OBi 300 ATA.');
 end $seed$;
 

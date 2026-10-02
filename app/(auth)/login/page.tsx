@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 import { AuthCard } from '@/components/auth/auth-card'
@@ -18,17 +17,7 @@ export default async function LoginPage() {
     <AuthCard
       title="Sign in"
       description="Enter your email and password to access your account."
-      footer={
-        <>
-          Need an account?{' '}
-          <Link
-            href="/signup"
-            className="font-medium text-foreground underline-offset-4 hover:underline"
-          >
-            Create one
-          </Link>
-        </>
-      }
+      footer="Accounts are set up by IT. Use your work order system sign-in."
     >
       <LoginForm />
     </AuthCard>

@@ -4,8 +4,8 @@ import type { Database } from '@/types/database'
 // Read helpers used by the Server Components under app/(app). Each creates its
 // own server client so it can run inside any page or layout.
 
-export type PropertyRow = Database['public']['Tables']['properties']['Row']
-export type AssetRow = Database['public']['Tables']['assets']['Row']
+export type PropertyRow = Database['it_asset_tracker']['Tables']['properties']['Row']
+export type AssetRow = Database['it_asset_tracker']['Tables']['assets']['Row']
 
 export type PropertyWithCount = Pick<
   PropertyRow,
@@ -97,13 +97,13 @@ export async function getAssetsForProperty(
   return data ?? []
 }
 
-export type DidRow = Database['public']['Tables']['dids']['Row']
+export type DidRow = Database['it_asset_tracker']['Tables']['dids']['Row']
 
 export type AssetWithDetail = AssetRow & {
-  asset_computers: Database['public']['Tables']['asset_computers']['Row'] | null
-  asset_software: Database['public']['Tables']['asset_software']['Row'] | null
-  asset_networks: Database['public']['Tables']['asset_networks']['Row'] | null
-  asset_phones: Database['public']['Tables']['asset_phones']['Row'] | null
+  asset_computers: Database['it_asset_tracker']['Tables']['asset_computers']['Row'] | null
+  asset_software: Database['it_asset_tracker']['Tables']['asset_software']['Row'] | null
+  asset_networks: Database['it_asset_tracker']['Tables']['asset_networks']['Row'] | null
+  asset_phones: Database['it_asset_tracker']['Tables']['asset_phones']['Row'] | null
   dids: DidRow[]
   properties: Pick<PropertyRow, 'slug' | 'name'> | null
 }

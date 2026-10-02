@@ -1,8 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import type { Database } from '@/types/database'
 
-export type VendorRow = Database['public']['Tables']['vendors']['Row']
-export type ContractRow = Database['public']['Tables']['vendor_contracts']['Row']
+export type VendorRow = Database['it_asset_tracker']['Tables']['vendors']['Row']
+export type ContractRow = Database['it_asset_tracker']['Tables']['vendor_contracts']['Row']
 
 export type VendorListItem = Pick<
   VendorRow,

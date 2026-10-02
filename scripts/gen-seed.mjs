@@ -65,9 +65,9 @@ function intLit(v) {
 function pick(set, v) {
   return set.has(v) ? s(v) : 'NULL'
 }
-const OPERATOR = '(select id from public.operators limit 1)'
+const OPERATOR = '(select id from it_asset_tracker.operators limit 1)'
 function propRef(locId) {
-  return locId ? `(select id from public.properties where slug = ${s(locId)})` : 'NULL'
+  return locId ? `(select id from it_asset_tracker.properties where slug = ${s(locId)})` : 'NULL'
 }
 
 function normalizeCategory(cat) {
@@ -95,17 +95,17 @@ out.push('')
 
 // Operator + contacts
 const op = OPS[0]
-out.push('insert into public.operators (name, short_name, logo_url, web_link, street, city, state, zip, country) values (')
+out.push('insert into it_asset_tracker.operators (name, short_name, logo_url, web_link, street, city, state, zip, country) values (')
 out.push(`  ${s(op.name)}, ${s(op.shortName)}, ${s(op.logo)}, ${s(op.webLink)}, ${s(op.street)}, ${s(op.city)}, ${s(op.state)}, ${s(op.zip)}, ${s(op.country)}`)
 out.push(');')
 for (const c of op.contacts || []) {
-  out.push(`insert into public.operator_contacts (operator_id, name, title, phone, email) values (${OPERATOR}, ${s(c.name)}, ${s(c.title)}, ${s(c.phone)}, ${s(c.email)});`)
+  out.push(`insert into it_asset_tracker.operator_contacts (operator_id, name, title, phone, email) values (${OPERATOR}, ${s(c.name)}, ${s(c.title)}, ${s(c.phone)}, ${s(c.email)});`)
 }
 out.push('')
 
 // Properties
 for (const l of LOCS) {
-  out.push('insert into public.properties (operator_id, slug, name, short_name, address, main_phone, ed_name, maintenance_tech, notes) values (')
+  out.push('insert into it_asset_tracker.properties (operator_id, slug, name, short_name, address, main_phone, ed_name, maintenance_tech, notes) values (')
   out.push(`  ${OPERATOR}, ${s(l.id)}, ${s(l.name)}, ${s(l.shortName)}, ${s(l.address)}, ${s(l.mainPhone)}, ${s(l.edName)}, ${s(l.maintenanceTech)}, ${s(l.notes)}`)
   out.push(');')
 }
@@ -153,14 +153,14 @@ for (const { a, net } of all) {
     phoneOut.push('do $seed$')
     phoneOut.push('declare pid uuid;')
     phoneOut.push('begin')
-    phoneOut.push('  insert into public.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)')
+    phoneOut.push('  insert into it_asset_tracker.assets (type, operator_id, property_id, sub_location, category, status, make, model, mac_address, notes)')
     phoneOut.push(`  values ('phone', ${OPERATOR}, ${propRef(a.location)}, ${s(a.subLocation)}, ${s(category)}, ${s(phoneAssetStatus(lineStatus))}, ${s(a.make)}, ${s(a.model)}, ${s(a.macAddress)}, ${s(a.notes)})`)
     phoneOut.push('  returning id into pid;')
-    phoneOut.push('  insert into public.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)')
+    phoneOut.push('  insert into it_asset_tracker.asset_phones (asset_id, provider, extension, public_ip, private_ip, line_type, line_status, last_provisioned, route_to, carrier, activation_code, avg_monthly_cost, cost_type, mrc_notes)')
     phoneOut.push(`  values (pid, ${s(a.provider)}, ${s(a.extension)}, ${s(a.publicIp)}, ${s(a.privateIp)}, ${s(a.lineType)}, ${s(lineStatus)}, ${s(a.lastProvisioned)}, ${s(a.routeTo)}, ${s(a.carrier)}, ${s(a.activationCode)}, ${s(a.avgMonthlyCost)}, ${s(a.costType)}, ${s(a.mrcNotes)});`)
     for (const d of a.dids || []) {
       counts.dids++
-      phoneOut.push('  insert into public.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)')
+      phoneOut.push('  insert into it_asset_tracker.dids (phone_asset_id, number, assigned_to, provider, number_source, number_type, caller_id_name, monthly_rate, notes)')
       phoneOut.push(`  values (pid, ${s(d.number)}, ${s(d.assignedTo)}, ${s(a.provider)}, ${s(d.numberSource)}, ${s(d.numberType)}, ${s(d.externalCallerId)}, ${s(d.avgMonthlyCost)}, ${s(d.mrcNotes)});`)
     }
     phoneOut.push('end $seed$;')
@@ -180,20 +180,20 @@ for (const { a, net } of all) {
   ].join(', ')
 
   if (type === 'computer') {
-    out.push(`with a as (insert into public.assets (${baseCols}) values (${baseVals}) returning id)`)
-    out.push('insert into public.asset_computers (asset_id, os_version, os_product_key, product_id, office_version, office_product_key, software_source, processor, ram, storage, graphics, system_type, device_id)')
+    out.push(`with a as (insert into it_asset_tracker.assets (${baseCols}) values (${baseVals}) returning id)`)
+    out.push('insert into it_asset_tracker.asset_computers (asset_id, os_version, os_product_key, product_id, office_version, office_product_key, software_source, processor, ram, storage, graphics, system_type, device_id)')
     out.push(`select id, ${s(a.osVersion)}, ${s(a.osProductKey)}, ${s(a.productId)}, ${s(a.officeVersion)}, ${s(a.officeProductKey)}, ${s(a.softwareSource)}, ${s(a.processor)}, ${s(a.ram)}, ${s(a.storage)}, ${s(a.graphics)}, ${s(a.systemType)}, ${s(a.deviceId)} from a;`)
   } else if (type === 'software') {
-    out.push(`with a as (insert into public.assets (${baseCols}) values (${baseVals}) returning id)`)
-    out.push('insert into public.asset_software (asset_id, office_version, office_product_key, software_source)')
+    out.push(`with a as (insert into it_asset_tracker.assets (${baseCols}) values (${baseVals}) returning id)`)
+    out.push('insert into it_asset_tracker.asset_software (asset_id, office_version, office_product_key, software_source)')
     out.push(`select id, ${s(a.officeVersion)}, ${s(a.officeProductKey)}, ${s(a.softwareSource)} from a;`)
   } else if (type === 'network') {
-    out.push(`with a as (insert into public.assets (${baseCols}) values (${baseVals}) returning id)`)
-    out.push('insert into public.asset_networks (asset_id, isp, port_count, managed, poe, vlan, wifi_standard, admin_ssid, resident_ssid, firmware_version, license_key, renewal_date, vendor, warranty_expiry, purchase_date)')
+    out.push(`with a as (insert into it_asset_tracker.assets (${baseCols}) values (${baseVals}) returning id)`)
+    out.push('insert into it_asset_tracker.asset_networks (asset_id, isp, port_count, managed, poe, vlan, wifi_standard, admin_ssid, resident_ssid, firmware_version, license_key, renewal_date, vendor, warranty_expiry, purchase_date)')
     out.push(`select id, ${s(a.isp)}, ${intLit(a.portCount)}, ${pick(new Set(['Managed', 'Unmanaged']), a.managed)}, ${pick(new Set(['Yes', 'No']), a.poe)}, ${s(a.vlan)}, ${pick(WIFI, a.wifiStandard)}, ${s(a.adminSsid)}, ${s(a.residentSsid)}, ${s(a.firmwareVersion)}, ${s(a.licenseKey)}, ${s(a.renewalDate)}, ${s(a.vendor)}, ${s(a.warrantyExpiry)}, ${s(a.purchaseDate)} from a;`)
   } else {
     // ata and camera: base row only, no detail table.
-    out.push(`insert into public.assets (${baseCols}) values (${baseVals});`)
+    out.push(`insert into it_asset_tracker.assets (${baseCols}) values (${baseVals});`)
   }
 }
 
@@ -202,11 +202,11 @@ for (const { a, net } of all) {
 function contractProp(locId) {
   if (!locId) return 'NULL'
   const v = locId.toLowerCase().trim()
-  if (v.startsWith('loc-')) return `(select id from public.properties where slug = ${s(locId)})`
+  if (v.startsWith('loc-')) return `(select id from it_asset_tracker.properties where slug = ${s(locId)})`
   const loc = LOCS.find(
     (l) => (l.name || '').toLowerCase() === v || (l.shortName || '').toLowerCase() === v
   )
-  return loc ? `(select id from public.properties where slug = ${s(loc.id)})` : 'NULL'
+  return loc ? `(select id from it_asset_tracker.properties where slug = ${s(loc.id)})` : 'NULL'
 }
 
 const vendorOut = []
@@ -215,27 +215,27 @@ for (const v of VENDORS) {
   vendorOut.push('do $seed$')
   vendorOut.push('declare vid uuid;')
   vendorOut.push('begin')
-  vendorOut.push('  insert into public.vendors (operator_id, name, category, billing_cadence, contact_name, phone, email, account_number, contract_start, contract_expiry, renewal_date, renewal_amount, license_count, renewal_notes, url_website, url_support, url_portal, notes)')
+  vendorOut.push('  insert into it_asset_tracker.vendors (operator_id, name, category, billing_cadence, contact_name, phone, email, account_number, contract_start, contract_expiry, renewal_date, renewal_amount, license_count, renewal_notes, url_website, url_support, url_portal, notes)')
   vendorOut.push(`  values (${OPERATOR}, ${s(v.name)}, ${s(v.category)}, ${s(v.billingCadence)}, ${s(v.contactName)}, ${s(v.phone)}, ${s(v.email)}, ${s(v.accountNumber)}, ${s(v.contractStart)}, ${s(v.contractExpiry)}, ${s(v.renewalDate)}, ${s(v.renewalAmount)}, ${intLit(v.licenseCount)}, ${s(v.renewalNotes)}, ${s(v.urlWebsite)}, ${s(v.urlSupport)}, ${s(v.urlPortal)}, ${s(v.notes)})`)
   vendorOut.push('  returning id into vid;')
   for (const c of v.contracts || []) {
     counts.contracts++
-    vendorOut.push('  insert into public.vendor_contracts (vendor_id, property_id, description, account_number, start_date, end_date, monthly_amount, notes)')
+    vendorOut.push('  insert into it_asset_tracker.vendor_contracts (vendor_id, property_id, description, account_number, start_date, end_date, monthly_amount, notes)')
     vendorOut.push(`  values (vid, ${contractProp(c.locationId)}, ${s(c.description)}, ${s(c.accountNumber)}, ${s(c.startDate)}, ${s(c.endDate)}, ${s(c.monthlyAmount)}, ${s(c.notes)});`)
   }
   vendorOut.push('end $seed$;')
 }
 // Backfill network device vendor links by exact (case-insensitive) name match.
 // Unmatched values (Araknis, Comcast) keep their free-text vendor as a fallback.
-vendorOut.push('update public.asset_networks an set vendor_id = v.id')
-vendorOut.push('from public.vendors v where an.vendor is not null and lower(an.vendor) = lower(v.name);')
+vendorOut.push('update it_asset_tracker.asset_networks an set vendor_id = v.id')
+vendorOut.push('from it_asset_tracker.vendors v where an.vendor is not null and lower(an.vendor) = lower(v.name);')
 
 // Per-property network summaries (one row per property, matched by slug).
 const netOut = []
 for (const n of NETSUM) {
   counts.networkSummaries++
-  netOut.push('insert into public.network_summaries (property_id, isp, isp_plan, isp_account_number, isp_monthly_cost, router, appliance, switches, switch_models, aps, ap_make, ap_model, wifi_standard, admin_ssid, resident_ssid, phone_system, cameras, tv, tv_account, tv_monthly_cost, notes)')
-  netOut.push(`select id, ${s(n.isp)}, ${s(n.ispPlan)}, ${s(n.ispAccountNumber)}, ${s(n.ispMonthlyCost)}, ${s(n.router)}, ${s(n.appliance)}, ${intLit(n.switches)}, ${s(n.switchModels)}, ${intLit(n.aps)}, ${s(n.apMake)}, ${s(n.apModel)}, ${s(n.wifiStandard)}, ${s(n.adminSsid)}, ${s(n.residentSsid)}, ${s(n.phoneSystem)}, ${s(n.cameras)}, ${s(n.tv)}, ${s(n.tvAccount)}, ${s(n.tvMonthlyCost)}, ${s(n.notes)} from public.properties where slug = ${s(n.location)};`)
+  netOut.push('insert into it_asset_tracker.network_summaries (property_id, isp, isp_plan, isp_account_number, isp_monthly_cost, router, appliance, switches, switch_models, aps, ap_make, ap_model, wifi_standard, admin_ssid, resident_ssid, phone_system, cameras, tv, tv_account, tv_monthly_cost, notes)')
+  netOut.push(`select id, ${s(n.isp)}, ${s(n.ispPlan)}, ${s(n.ispAccountNumber)}, ${s(n.ispMonthlyCost)}, ${s(n.router)}, ${s(n.appliance)}, ${intLit(n.switches)}, ${s(n.switchModels)}, ${intLit(n.aps)}, ${s(n.apMake)}, ${s(n.apModel)}, ${s(n.wifiStandard)}, ${s(n.adminSsid)}, ${s(n.residentSsid)}, ${s(n.phoneSystem)}, ${s(n.cameras)}, ${s(n.tv)}, ${s(n.tvAccount)}, ${s(n.tvMonthlyCost)}, ${s(n.notes)} from it_asset_tracker.properties where slug = ${s(n.location)};`)
 }
 
 // Full canonical seed (fresh resets): everything plus phones, vendors, summaries.

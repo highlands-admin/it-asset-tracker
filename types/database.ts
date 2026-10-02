@@ -12,7 +12,7 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
-  public: {
+  it_asset_tracker: {
     Tables: {
       asset_computers: {
         Row: {
@@ -247,9 +247,9 @@ export type Database = {
           operator_id: string
           property_id: string | null
           serial: string | null
-          status: Database["public"]["Enums"]["asset_status"]
+          status: Database["it_asset_tracker"]["Enums"]["asset_status"]
           sub_location: string | null
-          type: Database["public"]["Enums"]["asset_type"]
+          type: Database["it_asset_tracker"]["Enums"]["asset_type"]
           updated_at: string
         }
         Insert: {
@@ -268,9 +268,9 @@ export type Database = {
           operator_id: string
           property_id?: string | null
           serial?: string | null
-          status?: Database["public"]["Enums"]["asset_status"]
+          status?: Database["it_asset_tracker"]["Enums"]["asset_status"]
           sub_location?: string | null
-          type: Database["public"]["Enums"]["asset_type"]
+          type: Database["it_asset_tracker"]["Enums"]["asset_type"]
           updated_at?: string
         }
         Update: {
@@ -289,9 +289,9 @@ export type Database = {
           operator_id?: string
           property_id?: string | null
           serial?: string | null
-          status?: Database["public"]["Enums"]["asset_status"]
+          status?: Database["it_asset_tracker"]["Enums"]["asset_status"]
           sub_location?: string | null
-          type?: Database["public"]["Enums"]["asset_type"]
+          type?: Database["it_asset_tracker"]["Enums"]["asset_type"]
           updated_at?: string
         }
         Relationships: [
@@ -741,6 +741,7 @@ export type Database = {
     }
     Functions: {
       create_asset: { Args: { base: Json; detail?: Json }; Returns: string }
+      is_admin: { Args: never; Returns: boolean }
     }
     Enums: {
       asset_status:
@@ -766,7 +767,7 @@ export type Database = {
 
 type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "it_asset_tracker">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
@@ -882,7 +883,7 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  public: {
+  it_asset_tracker: {
     Enums: {
       asset_status: [
         "Active",

@@ -4,7 +4,7 @@
 -- on asset_id. ATA and cameras have no type-specific fields, so they are base rows
 -- with no detail table. Phones (with DIDs) arrive in a later phase.
 
-create type public.asset_type as enum (
+create type it_asset_tracker.asset_type as enum (
   'computer',
   'software',
   'ata',
@@ -12,7 +12,7 @@ create type public.asset_type as enum (
   'network'
 );
 
-create type public.asset_status as enum (
+create type it_asset_tracker.asset_status as enum (
   'Active',
   'Inactive',
   'In Repair',
@@ -21,19 +21,19 @@ create type public.asset_status as enum (
   'Needs Attention'
 );
 
-create table public.assets (
+create table it_asset_tracker.assets (
   id                uuid primary key default gen_random_uuid(),
-  type              public.asset_type not null,
-  operator_id       uuid not null references public.operators(id) on delete restrict,
+  type              it_asset_tracker.asset_type not null,
+  operator_id       uuid not null references it_asset_tracker.operators(id) on delete restrict,
   -- nullable: the prototype has assets with no location (e.g. unassigned licenses).
-  property_id       uuid references public.properties(id) on delete set null,
+  property_id       uuid references it_asset_tracker.properties(id) on delete set null,
   sub_location      text,
   category          text not null check (category in (
     'Laptop', 'Desktop', 'Software License', 'ATA / Fax', 'Security Camera',
     'DVR / NVR Controller', 'Router / Firewall', 'Switch', 'Access Point',
     'Network Controller', 'Server', 'Printer', 'Monitor', 'UPS', 'Other'
   )),
-  status            public.asset_status not null default 'Active',
+  status            it_asset_tracker.asset_status not null default 'Active',
   make              text,
   model             text,
   serial            text,
@@ -49,19 +49,19 @@ create table public.assets (
   updated_at        timestamptz not null default now()
 );
 
-create index assets_property_id_idx on public.assets (property_id);
-create index assets_type_idx on public.assets (type);
-create index assets_status_idx on public.assets (status);
+create index assets_property_id_idx on it_asset_tracker.assets (property_id);
+create index assets_type_idx on it_asset_tracker.assets (type);
+create index assets_status_idx on it_asset_tracker.assets (status);
 -- Supports the hot path: list a property's assets, newest first.
-create index assets_property_created_idx on public.assets (property_id, created_at desc);
+create index assets_property_created_idx on it_asset_tracker.assets (property_id, created_at desc);
 
 create trigger assets_set_updated_at
-  before update on public.assets
-  for each row execute function public.set_updated_at();
+  before update on it_asset_tracker.assets
+  for each row execute function it_asset_tracker.set_updated_at();
 
 -- Detail tables share the base row's primary key as their own primary key and FK.
-create table public.asset_computers (
-  asset_id           uuid primary key references public.assets(id) on delete cascade,
+create table it_asset_tracker.asset_computers (
+  asset_id           uuid primary key references it_asset_tracker.assets(id) on delete cascade,
   os_version         text,
   os_product_key     text,
   product_id         text,
@@ -76,15 +76,15 @@ create table public.asset_computers (
   device_id          text
 );
 
-create table public.asset_software (
-  asset_id           uuid primary key references public.assets(id) on delete cascade,
+create table it_asset_tracker.asset_software (
+  asset_id           uuid primary key references it_asset_tracker.assets(id) on delete cascade,
   office_version     text,
   office_product_key text,
   software_source    text
 );
 
-create table public.asset_networks (
-  asset_id         uuid primary key references public.assets(id) on delete cascade,
+create table it_asset_tracker.asset_networks (
+  asset_id         uuid primary key references it_asset_tracker.assets(id) on delete cascade,
   isp              text,
   port_count       integer,
   managed          text check (managed in ('Managed', 'Unmanaged')),
@@ -102,48 +102,48 @@ create table public.asset_networks (
   purchase_date    date
 );
 
--- RLS: shared org-wide full access for authenticated users, deny otherwise.
-alter table public.assets enable row level security;
-alter table public.asset_computers enable row level security;
-alter table public.asset_software enable row level security;
-alter table public.asset_networks enable row level security;
+-- RLS: full access for work-order administrators, deny everyone else.
+alter table it_asset_tracker.assets enable row level security;
+alter table it_asset_tracker.asset_computers enable row level security;
+alter table it_asset_tracker.asset_software enable row level security;
+alter table it_asset_tracker.asset_networks enable row level security;
 
-create policy "assets_select_authenticated" on public.assets
-  for select using ((select auth.uid()) is not null);
-create policy "assets_insert_authenticated" on public.assets
-  for insert with check ((select auth.uid()) is not null);
-create policy "assets_update_authenticated" on public.assets
-  for update using ((select auth.uid()) is not null)
-  with check ((select auth.uid()) is not null);
-create policy "assets_delete_authenticated" on public.assets
-  for delete using ((select auth.uid()) is not null);
+create policy "assets_select_admin" on it_asset_tracker.assets
+  for select using ((select it_asset_tracker.is_admin()));
+create policy "assets_insert_admin" on it_asset_tracker.assets
+  for insert with check ((select it_asset_tracker.is_admin()));
+create policy "assets_update_admin" on it_asset_tracker.assets
+  for update using ((select it_asset_tracker.is_admin()))
+  with check ((select it_asset_tracker.is_admin()));
+create policy "assets_delete_admin" on it_asset_tracker.assets
+  for delete using ((select it_asset_tracker.is_admin()));
 
-create policy "asset_computers_select_authenticated" on public.asset_computers
-  for select using ((select auth.uid()) is not null);
-create policy "asset_computers_insert_authenticated" on public.asset_computers
-  for insert with check ((select auth.uid()) is not null);
-create policy "asset_computers_update_authenticated" on public.asset_computers
-  for update using ((select auth.uid()) is not null)
-  with check ((select auth.uid()) is not null);
-create policy "asset_computers_delete_authenticated" on public.asset_computers
-  for delete using ((select auth.uid()) is not null);
+create policy "asset_computers_select_admin" on it_asset_tracker.asset_computers
+  for select using ((select it_asset_tracker.is_admin()));
+create policy "asset_computers_insert_admin" on it_asset_tracker.asset_computers
+  for insert with check ((select it_asset_tracker.is_admin()));
+create policy "asset_computers_update_admin" on it_asset_tracker.asset_computers
+  for update using ((select it_asset_tracker.is_admin()))
+  with check ((select it_asset_tracker.is_admin()));
+create policy "asset_computers_delete_admin" on it_asset_tracker.asset_computers
+  for delete using ((select it_asset_tracker.is_admin()));
 
-create policy "asset_software_select_authenticated" on public.asset_software
-  for select using ((select auth.uid()) is not null);
-create policy "asset_software_insert_authenticated" on public.asset_software
-  for insert with check ((select auth.uid()) is not null);
-create policy "asset_software_update_authenticated" on public.asset_software
-  for update using ((select auth.uid()) is not null)
-  with check ((select auth.uid()) is not null);
-create policy "asset_software_delete_authenticated" on public.asset_software
-  for delete using ((select auth.uid()) is not null);
+create policy "asset_software_select_admin" on it_asset_tracker.asset_software
+  for select using ((select it_asset_tracker.is_admin()));
+create policy "asset_software_insert_admin" on it_asset_tracker.asset_software
+  for insert with check ((select it_asset_tracker.is_admin()));
+create policy "asset_software_update_admin" on it_asset_tracker.asset_software
+  for update using ((select it_asset_tracker.is_admin()))
+  with check ((select it_asset_tracker.is_admin()));
+create policy "asset_software_delete_admin" on it_asset_tracker.asset_software
+  for delete using ((select it_asset_tracker.is_admin()));
 
-create policy "asset_networks_select_authenticated" on public.asset_networks
-  for select using ((select auth.uid()) is not null);
-create policy "asset_networks_insert_authenticated" on public.asset_networks
-  for insert with check ((select auth.uid()) is not null);
-create policy "asset_networks_update_authenticated" on public.asset_networks
-  for update using ((select auth.uid()) is not null)
-  with check ((select auth.uid()) is not null);
-create policy "asset_networks_delete_authenticated" on public.asset_networks
-  for delete using ((select auth.uid()) is not null);
+create policy "asset_networks_select_admin" on it_asset_tracker.asset_networks
+  for select using ((select it_asset_tracker.is_admin()));
+create policy "asset_networks_insert_admin" on it_asset_tracker.asset_networks
+  for insert with check ((select it_asset_tracker.is_admin()));
+create policy "asset_networks_update_admin" on it_asset_tracker.asset_networks
+  for update using ((select it_asset_tracker.is_admin()))
+  with check ((select it_asset_tracker.is_admin()));
+create policy "asset_networks_delete_admin" on it_asset_tracker.asset_networks
+  for delete using ((select it_asset_tracker.is_admin()));

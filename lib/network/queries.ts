@@ -2,8 +2,8 @@ import { createClient } from '@/lib/supabase/server'
 import type { Database } from '@/types/database'
 
 export type NetworkSummaryRow =
-  Database['public']['Tables']['network_summaries']['Row']
-type PropertyRow = Database['public']['Tables']['properties']['Row']
+  Database['it_asset_tracker']['Tables']['network_summaries']['Row']
+type PropertyRow = Database['it_asset_tracker']['Tables']['properties']['Row']
 
 export type CameraTally = { active: number; inactive: number; vendors: string[] }
 

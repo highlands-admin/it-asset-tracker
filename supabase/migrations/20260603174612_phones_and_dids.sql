@@ -3,8 +3,8 @@
 -- can have many dids (one had five), so DIDs are a child table.
 
 -- Extend the category CHECK with phone-relevant categories.
-alter table public.assets drop constraint assets_category_check;
-alter table public.assets add constraint assets_category_check check (category in (
+alter table it_asset_tracker.assets drop constraint assets_category_check;
+alter table it_asset_tracker.assets add constraint assets_category_check check (category in (
   'Laptop', 'Desktop', 'Software License', 'ATA / Fax', 'Security Camera',
   'DVR / NVR Controller', 'Router / Firewall', 'Switch', 'Access Point',
   'Network Controller', 'Server', 'Printer', 'Monitor', 'UPS', 'Other',
@@ -14,8 +14,8 @@ alter table public.assets add constraint assets_category_check check (category i
 -- Phone detail. line_status is the phone's own registration state (separate
 -- from the base assets.status, which the app derives from it). Provider, line
 -- type, and carrier are open vocabularies, so they stay plain text.
-create table public.asset_phones (
-  asset_id        uuid primary key references public.assets(id) on delete cascade,
+create table it_asset_tracker.asset_phones (
+  asset_id        uuid primary key references it_asset_tracker.assets(id) on delete cascade,
   provider        text,
   extension       text,
   public_ip       text,
@@ -33,9 +33,9 @@ create table public.asset_phones (
   mrc_notes       text
 );
 
-create table public.dids (
+create table it_asset_tracker.dids (
   id              uuid primary key default gen_random_uuid(),
-  phone_asset_id  uuid not null references public.assets(id) on delete cascade,
+  phone_asset_id  uuid not null references it_asset_tracker.assets(id) on delete cascade,
   number          text not null,
   extension       text,
   assigned_to     text,
@@ -50,48 +50,48 @@ create table public.dids (
   updated_at      timestamptz not null default now()
 );
 
-create index dids_phone_asset_id_idx on public.dids (phone_asset_id);
+create index dids_phone_asset_id_idx on it_asset_tracker.dids (phone_asset_id);
 
 create trigger dids_set_updated_at
-  before update on public.dids
-  for each row execute function public.set_updated_at();
+  before update on it_asset_tracker.dids
+  for each row execute function it_asset_tracker.set_updated_at();
 
--- RLS: same shared org-wide full access for authenticated users.
-alter table public.asset_phones enable row level security;
-alter table public.dids enable row level security;
+-- RLS: same work-order-administrator access.
+alter table it_asset_tracker.asset_phones enable row level security;
+alter table it_asset_tracker.dids enable row level security;
 
-create policy "asset_phones_select_authenticated" on public.asset_phones
-  for select using ((select auth.uid()) is not null);
-create policy "asset_phones_insert_authenticated" on public.asset_phones
-  for insert with check ((select auth.uid()) is not null);
-create policy "asset_phones_update_authenticated" on public.asset_phones
-  for update using ((select auth.uid()) is not null)
-  with check ((select auth.uid()) is not null);
-create policy "asset_phones_delete_authenticated" on public.asset_phones
-  for delete using ((select auth.uid()) is not null);
+create policy "asset_phones_select_admin" on it_asset_tracker.asset_phones
+  for select using ((select it_asset_tracker.is_admin()));
+create policy "asset_phones_insert_admin" on it_asset_tracker.asset_phones
+  for insert with check ((select it_asset_tracker.is_admin()));
+create policy "asset_phones_update_admin" on it_asset_tracker.asset_phones
+  for update using ((select it_asset_tracker.is_admin()))
+  with check ((select it_asset_tracker.is_admin()));
+create policy "asset_phones_delete_admin" on it_asset_tracker.asset_phones
+  for delete using ((select it_asset_tracker.is_admin()));
 
-create policy "dids_select_authenticated" on public.dids
-  for select using ((select auth.uid()) is not null);
-create policy "dids_insert_authenticated" on public.dids
-  for insert with check ((select auth.uid()) is not null);
-create policy "dids_update_authenticated" on public.dids
-  for update using ((select auth.uid()) is not null)
-  with check ((select auth.uid()) is not null);
-create policy "dids_delete_authenticated" on public.dids
-  for delete using ((select auth.uid()) is not null);
+create policy "dids_select_admin" on it_asset_tracker.dids
+  for select using ((select it_asset_tracker.is_admin()));
+create policy "dids_insert_admin" on it_asset_tracker.dids
+  for insert with check ((select it_asset_tracker.is_admin()));
+create policy "dids_update_admin" on it_asset_tracker.dids
+  for update using ((select it_asset_tracker.is_admin()))
+  with check ((select it_asset_tracker.is_admin()));
+create policy "dids_delete_admin" on it_asset_tracker.dids
+  for delete using ((select it_asset_tracker.is_admin()));
 
 -- Extend create_asset with a phone branch. Uses new_type::text comparison for
 -- the new value so function creation never validates the enum literal.
-create or replace function public.create_asset(base jsonb, detail jsonb default '{}'::jsonb)
+create or replace function it_asset_tracker.create_asset(base jsonb, detail jsonb default '{}'::jsonb)
 returns uuid
 language plpgsql
 set search_path = ''
 as $$
 declare
   new_id uuid;
-  new_type public.asset_type := (base->>'type')::public.asset_type;
+  new_type it_asset_tracker.asset_type := (base->>'type')::it_asset_tracker.asset_type;
 begin
-  insert into public.assets (
+  insert into it_asset_tracker.assets (
     type, operator_id, property_id, sub_location, category, status,
     make, model, serial, hostname, mac_address, ip_address,
     assigned_user, notes, entry_date, last_seen_on_site
@@ -102,7 +102,7 @@ begin
     nullif(base->>'property_id', '')::uuid,
     nullif(base->>'sub_location', ''),
     base->>'category',
-    coalesce(nullif(base->>'status', '')::public.asset_status, 'Active'),
+    coalesce(nullif(base->>'status', '')::it_asset_tracker.asset_status, 'Active'),
     nullif(base->>'make', ''),
     nullif(base->>'model', ''),
     nullif(base->>'serial', ''),
@@ -117,7 +117,7 @@ begin
   returning id into new_id;
 
   if new_type = 'computer' then
-    insert into public.asset_computers (
+    insert into it_asset_tracker.asset_computers (
       asset_id, os_version, os_product_key, product_id, office_version,
       office_product_key, software_source, processor, ram, storage,
       graphics, system_type, device_id
@@ -138,7 +138,7 @@ begin
       nullif(detail->>'device_id', '')
     );
   elsif new_type = 'software' then
-    insert into public.asset_software (
+    insert into it_asset_tracker.asset_software (
       asset_id, office_version, office_product_key, software_source
     )
     values (
@@ -148,7 +148,7 @@ begin
       nullif(detail->>'software_source', '')
     );
   elsif new_type = 'network' then
-    insert into public.asset_networks (
+    insert into it_asset_tracker.asset_networks (
       asset_id, isp, port_count, managed, poe, vlan, wifi_standard,
       admin_ssid, resident_ssid, firmware_version, license_key,
       renewal_date, vendor, warranty_expiry, purchase_date
@@ -171,7 +171,7 @@ begin
       nullif(detail->>'purchase_date', '')::date
     );
   elsif new_type::text = 'phone' then
-    insert into public.asset_phones (
+    insert into it_asset_tracker.asset_phones (
       asset_id, provider, extension, public_ip, private_ip, line_type,
       line_status, last_provisioned, route_to, carrier, activation_code,
       avg_monthly_cost, cost_type, mrc_notes

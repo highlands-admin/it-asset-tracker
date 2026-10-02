@@ -7,7 +7,6 @@ import { createClient } from '@/lib/supabase/server'
 import {
   forgotPasswordSchema,
   loginSchema,
-  signUpSchema,
   updatePasswordSchema,
   verifySchema,
 } from '@/lib/schemas/auth'
@@ -24,49 +23,6 @@ function formError(
   message?: string
 ): AuthState {
   return { status: 'error', fieldErrors, values, message }
-}
-
-export async function signUpAction(
-  _prev: AuthState,
-  formData: FormData
-): Promise<AuthState> {
-  const raw = {
-    firstName: String(formData.get('firstName') ?? ''),
-    lastName: String(formData.get('lastName') ?? ''),
-    email: String(formData.get('email') ?? ''),
-    password: String(formData.get('password') ?? ''),
-    confirmPassword: String(formData.get('confirmPassword') ?? ''),
-  }
-
-  const parsed = signUpSchema.safeParse(raw)
-  const safeValues = {
-    firstName: raw.firstName,
-    lastName: raw.lastName,
-    email: raw.email,
-  }
-  if (!parsed.success) {
-    return formError(z4FieldErrors(parsed.error), safeValues)
-  }
-
-  const supabase = await createClient()
-  const { error } = await supabase.auth.signUp({
-    email: parsed.data.email,
-    password: parsed.data.password,
-    options: {
-      data: {
-        first_name: parsed.data.firstName,
-        last_name: parsed.data.lastName,
-      },
-    },
-  })
-
-  if (error) {
-    return formError(undefined, safeValues, error.message)
-  }
-
-  // Email confirmation is on, so no session exists yet. Send the user to enter
-  // the 6-digit code we just emailed.
-  redirect(`/verify?email=${encodeURIComponent(parsed.data.email)}`)
 }
 
 export async function loginAction(

@@ -13,7 +13,7 @@ export default async function VerifyPage({
   searchParams: Promise<{ email?: string }>
 }) {
   const { email } = await searchParams
-  if (!email) redirect('/signup')
+  if (!email) redirect('/login')
 
   return (
     <AuthCard
@@ -22,7 +22,7 @@ export default async function VerifyPage({
         <>
           We sent a 6-digit code to{' '}
           <span className="font-medium text-foreground">{email}</span>. Enter it
-          below to finish signing up.
+          below to confirm your email.
         </>
       }
     >

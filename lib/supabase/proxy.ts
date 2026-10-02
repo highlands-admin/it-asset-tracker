@@ -40,7 +40,6 @@ export async function updateSession(
   // is no role-based gating; a valid session is the only requirement.
   const publicAuthRoutes = [
     '/login',
-    '/signup',
     '/verify',
     '/forgot-password',
     '/reset-password',

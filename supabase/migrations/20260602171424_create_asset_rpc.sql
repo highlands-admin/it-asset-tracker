@@ -7,16 +7,16 @@
 -- detail: jsonb of the detail table's columns; ignored for ata/camera.
 -- Empty strings are coerced to null so the UI can submit blank fields freely.
 
-create or replace function public.create_asset(base jsonb, detail jsonb default '{}'::jsonb)
+create or replace function it_asset_tracker.create_asset(base jsonb, detail jsonb default '{}'::jsonb)
 returns uuid
 language plpgsql
 set search_path = ''
 as $$
 declare
   new_id uuid;
-  new_type public.asset_type := (base->>'type')::public.asset_type;
+  new_type it_asset_tracker.asset_type := (base->>'type')::it_asset_tracker.asset_type;
 begin
-  insert into public.assets (
+  insert into it_asset_tracker.assets (
     type, operator_id, property_id, sub_location, category, status,
     make, model, serial, hostname, mac_address, ip_address,
     assigned_user, notes, entry_date, last_seen_on_site
@@ -27,7 +27,7 @@ begin
     nullif(base->>'property_id', '')::uuid,
     nullif(base->>'sub_location', ''),
     base->>'category',
-    coalesce(nullif(base->>'status', '')::public.asset_status, 'Active'),
+    coalesce(nullif(base->>'status', '')::it_asset_tracker.asset_status, 'Active'),
     nullif(base->>'make', ''),
     nullif(base->>'model', ''),
     nullif(base->>'serial', ''),
@@ -42,7 +42,7 @@ begin
   returning id into new_id;
 
   if new_type = 'computer' then
-    insert into public.asset_computers (
+    insert into it_asset_tracker.asset_computers (
       asset_id, os_version, os_product_key, product_id, office_version,
       office_product_key, software_source, processor, ram, storage,
       graphics, system_type, device_id
@@ -63,7 +63,7 @@ begin
       nullif(detail->>'device_id', '')
     );
   elsif new_type = 'software' then
-    insert into public.asset_software (
+    insert into it_asset_tracker.asset_software (
       asset_id, office_version, office_product_key, software_source
     )
     values (
@@ -73,7 +73,7 @@ begin
       nullif(detail->>'software_source', '')
     );
   elsif new_type = 'network' then
-    insert into public.asset_networks (
+    insert into it_asset_tracker.asset_networks (
       asset_id, isp, port_count, managed, poe, vlan, wifi_standard,
       admin_ssid, resident_ssid, firmware_version, license_key,
       renewal_date, vendor, warranty_expiry, purchase_date

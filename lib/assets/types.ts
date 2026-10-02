@@ -4,8 +4,8 @@ import type { Database } from '@/types/database'
 // read layer (lib/assets/queries) and the mutation layer (assets/actions). The
 // per-type branch logic that mirrors the create_asset RPC lives here, in one place.
 
-export type AssetType = Database['public']['Enums']['asset_type']
-export type AssetStatus = Database['public']['Enums']['asset_status']
+export type AssetType = Database['it_asset_tracker']['Enums']['asset_type']
+export type AssetStatus = Database['it_asset_tracker']['Enums']['asset_status']
 
 export const ASSET_TYPES: AssetType[] = [
   'computer',

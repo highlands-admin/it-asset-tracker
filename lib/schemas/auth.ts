@@ -17,21 +17,6 @@ const otp = z
   .string()
   .regex(/^\d{6}$/, 'Enter the 6-digit code from your email')
 
-export const signUpSchema = z
-  .object({
-    firstName: z.string().trim().min(1, 'First name is required').max(50),
-    lastName: z.string().trim().min(1, 'Last name is required').max(50),
-    email,
-    password,
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  })
-
-export type SignUpInput = z.infer<typeof signUpSchema>
-
 export const loginSchema = z.object({
   email,
   password: z.string().min(1, 'Password is required'),
